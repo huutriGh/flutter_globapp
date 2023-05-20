@@ -14,3 +14,17 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+sembast: Simple Embedded Application Store
+Single file loaded in memory
+Document Based data stored in JSON
+Written in Dart (Android, ios and web)
+Data type
+    String
+    num (int and double)
+    Map(Map<String, dynamic>)
+    List(List<dynamic>)
+    bool
+    null(value)
+    Blob (custom type)
+    TimeStamp (Custom type)
