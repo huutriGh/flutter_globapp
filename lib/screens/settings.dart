@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:globapp/data/shared_prefs.dart';
+
+import '../models/font_Size.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -18,6 +21,24 @@ class _SettingScreenState extends State<SettingScreen> {
     0xFF795548
   ];
 
+  SPSettings settings = SPSettings();
+  final List<FontSize> fontSizes = [
+    FontSize('small', 12),
+    FontSize('medium', 16),
+    FontSize('large', 20),
+    FontSize('extra-large', 24),
+  ];
+  @override
+  initState() {
+    settings.init().then((value) {
+      setState(() {
+        settingColor = settings.getColor();
+        fontSize = settings.getFontSize();
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +49,25 @@ class _SettingScreenState extends State<SettingScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text('App Main Color'),
+          Text(
+            'Choose a Font Size for the app',
+            style: TextStyle(
+              fontSize: fontSize,
+              color: Color(settingColor),
+            ),
+          ),
+          DropdownButton(
+            value: fontSize.toString(),
+            items: getDropdownMenuItems(),
+            onChanged: changeSize,
+          ),
+          Text(
+            'App Main Color',
+            style: TextStyle(
+              fontSize: fontSize,
+              color: Color(settingColor),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -58,6 +97,25 @@ class _SettingScreenState extends State<SettingScreen> {
   void setColor(int color) {
     setState(() {
       settingColor = color;
+      settings.setColor(color);
+    });
+  }
+
+  List<DropdownMenuItem<String>> getDropdownMenuItems() {
+    List<DropdownMenuItem<String>> items = [];
+    for (var fontSize in fontSizes) {
+      items.add(DropdownMenuItem(
+        value: fontSize.size.toString(),
+        child: Text(fontSize.name),
+      ));
+    }
+    return items;
+  }
+
+  void changeSize(String? newSize) {
+    settings.setFontSize(double.parse(newSize ?? '14'));
+    setState(() {
+      fontSize = double.parse(newSize ?? '14');
     });
   }
 }
