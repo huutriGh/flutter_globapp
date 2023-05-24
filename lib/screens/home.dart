@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globapp/screens/notes.dart';
 import 'package:globapp/screens/password.dart';
 import '../data/shared_prefs.dart';
 
@@ -74,6 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const PasswordsScreen()));
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Notes',
+                    style: TextStyle(
+                      fontSize: fontSize,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotesScreen()));
                   },
                 ),
               ],
